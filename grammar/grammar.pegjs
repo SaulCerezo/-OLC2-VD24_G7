@@ -9,15 +9,24 @@ Expression
     }
 
 cadena 
-  = vari:variable _ '=' _ rec:(opciones / concatenacion / quoted / range / set / subexpresion) _ (';'/_) {
+  = vari:variable _ '=' _ rec:(cero_o_mas/ una_o_mas / opciones / concatenacion / quoted / range / set / subexpresion ) _ (';'/_) {
       return 'Cadena reconocida: ' + rec;
     }
 
 subexpresion
-  = '(' _ rec:(opciones / concatenacion / quoted / range / set / subexpresion) _ ')' {
+  = '(' _ rec:(cero_o_mas / una_o_mas / opciones / concatenacion / quoted / range / set / subexpresion) _ ')' {
       return rec;
     }
-  
+
+cero_o_mas
+  = _ rec:(opciones / concatenacion / quoted / range / set / subexpresion) _ "*" { 
+      return [" ", rec, rec + rec, rec + rec + rec];
+    }
+
+una_o_mas
+  = _ rec:(opciones / concatenacion / quoted / range / set / subexpresion) _ "+" { 
+      return [rec, rec + rec, rec + rec + rec];
+    }
 
 variable =[a-zA-Z0-9_]+ {
       return text();
@@ -59,3 +68,4 @@ set
     }
 
 _ = [ \t\n\r]* 
+
