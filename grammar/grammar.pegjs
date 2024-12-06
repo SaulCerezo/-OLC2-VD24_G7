@@ -9,9 +9,15 @@ Expression
     }
 
 cadena 
-  = vari:variable _ '=' _ rec:(opciones / concatenacion / quoted / range / set) _ (';'/_) {
+  = vari:variable _ '=' _ rec:(opciones / concatenacion / quoted / range / set / subexpresion) _ (';'/_) {
       return 'Cadena reconocida: ' + rec;
     }
+
+subexpresion
+  = '(' _ rec:(opciones / concatenacion / quoted / range / set / subexpresion) _ ')' {
+      return rec;
+    }
+  
 
 variable =[a-zA-Z0-9_]+ {
       return text();
