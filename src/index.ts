@@ -10,8 +10,8 @@ window.addEventListener('DOMContentLoaded', () => {
         const inputData = editableArea.value.trim();
 
         try {
-            const output = Parser.parse(inputData);
-            readonlyArea.value = JSON.stringify(output, null, 2); 
+            Parser.parse(inputData);
+            readonlyArea.value = "Gramática correcta.\n\n";
         } catch (error) {
             readonlyArea.value = `Error: ${error.message}`;
         }

@@ -4,19 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Parser</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Enlace al CSS -->
 </head>
 <body>
     <h1>Parser Interface</h1>
     
-    <label for="editable">Editable Text Area:</label>
-    <textarea id="editable" rows="10" cols="50"></textarea>
-
-    <br><br>
-
-    <label for="readonly">Read-Only Text Area:</label>
-    <textarea id="readonly" rows="10" cols="50" readonly></textarea>
-
-    <br><br>
+    <!-- Contenedor para los textarea -->
+    <div class="textarea-container">
+        <textarea id="editable" placeholder="Escribe aquí..."></textarea>
+        <textarea id="readonly" placeholder="El resultado aparecerá aquí..." readonly></textarea>
+    </div>
 
     <button id="processBtn">Process</button>
 
