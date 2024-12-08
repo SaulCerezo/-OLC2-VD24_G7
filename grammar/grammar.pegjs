@@ -1,71 +1,27 @@
-start
-  = head:Expression tail:("\n" Expression)* {
-      return [head, ...tail];
-    }
+grammar
+ = regla (_ regla)*
 
-Expression 
-  = primero:cadena lista:(_ cadena)* {
-      return [primero, ...lista.map(([_, cadena]) => cadena)];
-    }
+regla
+ = _ id _ "=" _ opciones _ (';'/_)
 
-cadena 
-  = vari:variable _ '=' _ rec:(cero_o_mas/ una_o_mas / opciones / concatenacion / quoted / range / set / subexpresion ) _ (';'/_) {
-      return 'Cadena reconocida: ' + rec;
-    }
-
-subexpresion
-  = '(' _ rec:(cero_o_mas / una_o_mas / opciones / concatenacion / quoted / range / set / subexpresion) _ ')' {
-      return rec;
-    }
-
-cero_o_mas
-  = _ rec:(opciones / concatenacion / quoted / range / set / subexpresion) _ "*" { 
-      return [" ", rec, rec + rec, rec + rec + rec];
-    }
-
-una_o_mas
-  = _ rec:(opciones / concatenacion / quoted / range / set / subexpresion) _ "+" { 
-      return [rec, rec + rec, rec + rec + rec];
-    }
-
-variable =[a-zA-Z0-9_]+ {
-      return text();
-    }
-
-quoted
-  = '"' [a-zA-Z0-9_]+ '"' {
-      return text().slice(1, -1); // Quitar comillas 
-    }
-  / "'" [a-zA-Z0-9_]+ "'" {
-      return text().slice(1, -1); // Quitar comillas
-    }
+opciones
+ = concatenacion (_ "/" _ concatenacion)*
 
 concatenacion
-  = quotedPart:quoted _ otherParts:(quoted _)* {
-      // Concatenar todas las partes en una sola cadena
-      return [quotedPart, ...otherParts.map(([part]) => part)].join('');
-    }
-    
-opciones
-  = first:quoted _ '/' _ rest:(quoted _ '/' _)* last:quoted {
-      // Captura las cadenas y las coloca en un array
-      return [first, ...rest.map(([option]) => option), last];
-    }
+ = expresion (_ expresion)*
+ 
+expresion
+ = subexpresion [+*?]?
+ / cero_o_mas
+ / una_o_mas
+ / cero_o_una
+ / parseo
+ 
+ subexpresion
+  = "(" _ opciones _ ")"
 
+cero_o_mas
+ = _ parseo _ "*" 
 
-range
-  = '[' start:[a-zA-Z] '-' end:[a-zA-Z] ']' {
-      const result = [];
-      for (let char = start.charCodeAt(0); char <= end.charCodeAt(0); char++) {
-        result.push(String.fromCharCode(char));
-      }
-      return result; // Rango como arreglo
-    }
-
-set
-  = '[' chars:[a-zA-Z0-9]+ ']' {
-       return chars.join('').split('');
-    }
-
-_ = [ \t\n\r]* 
-
+una_o_mas
+ = _ parseo _ "+"
