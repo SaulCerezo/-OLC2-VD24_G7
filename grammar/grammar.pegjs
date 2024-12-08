@@ -1,7 +1,17 @@
+{
+  const array_reglas = {}; 
+}
+
 start
-  = head:Expression tail:("\n" Expression)* {
-      return [head, ...tail];
+  = head:Reglas tail:(_ Reglas)* {
+      return [head, ...tail.map(([_, rule]) => rule)];
     }
+
+Reglas 
+  = var_:variable _ "=" _ expr:Expression _ ";" {
+  array_reglas[var_] = expr;
+  return {var_, expr};
+}
 
 Expression 
   = primero:cadena lista:(_ cadena)* {
@@ -9,13 +19,17 @@ Expression
     }
 
 cadena 
-  = vari:variable _ '=' _ rec:(cero_o_mas/ una_o_mas / opciones / concatenacion / quoted / range / set / subexpresion ) _ (';'/_) {
+  = variable_referencia:variable {
+    if(array_reglas[variable_referencia]){ return `Regla: ${variable_referencia}`; }
+    else{ throw new Error(`Regla no definida: ${variable_referencia}`); }
+  } 
+  / cero_o_mas/ una_o_mas / cero_o_uno / opciones / concatenacion / quoted / range / set / subexpresion _ (';'/_) {
       return 'Cadena reconocida: ' + rec;
     }
 
 subexpresion
-  = '(' _ rec:(cero_o_mas / una_o_mas / opciones / concatenacion / quoted / range / set / subexpresion) _ ')' {
-      return rec;
+  = '(' _ expr:Expression _ ')' {
+      return expr;
     }
 
 cero_o_mas
@@ -26,6 +40,11 @@ cero_o_mas
 una_o_mas
   = _ rec:(opciones / concatenacion / quoted / range / set / subexpresion) _ "+" { 
       return [rec, rec + rec, rec + rec + rec];
+    }
+
+cero_o_uno
+  = _ rec:(opciones / concatenacion / quoted / range / set / subexpresion) _ "?" { 
+      return [" ", rec];
     }
 
 variable =[a-zA-Z0-9_]+ {
