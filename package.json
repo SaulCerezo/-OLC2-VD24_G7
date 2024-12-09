@@ -1,0 +1,22 @@
+{
+  "name": "olc2-vd24_g7",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "predev": "npm run compile",
+    "start": "node dist/index.js",
+    "prebuild": "npm run compile",
+    "build": "tsc",
+    "compile": "peggy --format es -o src/grammar.js grammar/grammar.pegjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^22.10.1",
+    "peggy": "^4.2.0",
+    "typescript": "^5.7.2"
+  }
+}

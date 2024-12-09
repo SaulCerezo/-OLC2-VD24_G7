@@ -1,0 +1,9 @@
+conjunto = [abc];
+rango = [a-z];
+cadena_1 = 'hola';
+literal = "foo" "bar" "baltazar"
+opciones = "foo" / "bar" / "baz"
+grupo = ( "foo" + )
+cero_o_mas = "foo" *
+una_o_mas = "foo" +
+cero_o_uno = "foo" ?
