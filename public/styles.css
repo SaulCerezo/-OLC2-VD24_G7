@@ -1,3 +1,4 @@
+/* General */
 body {
     background-color: #000;
     color: #fff;
@@ -14,41 +15,90 @@ h1 {
     margin-bottom: 20px;
 }
 
-/* Contenedor para los textarea */
+/* Contenedor de los textareas */
 .textarea-container {
     display: flex;
     justify-content: space-between;
+    gap: 5px; /* Espacio entre los textareas */
     width: 80%;
-    max-width: 1200px; 
-    margin-bottom: 2px; 
+    max-width: 1200px;
+    margin-bottom: 20px;
 }
 
-/* Estilo para cada textarea */
+/* Textarea editable con números de línea */
+.textarea-wrapper {
+    position: relative;
+    display: flex;
+    width: 80%;
+    max-width: 1200px;
+    margin-bottom: 20px;
+}
+
+/* Contenedor de los números de línea */
+.line-numbers {
+    background-color: #1e1e1e;
+    color: #555;
+    text-align: right;
+    padding: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    border: 1px solid #555;
+    border-right: none;
+    border-radius: 5px 0 0 5px;
+    user-select: none;
+    white-space: pre;
+    overflow: hidden;  
+    height: 350px;  
+    box-sizing: border-box;
+    width: 50px; 
+}
+
+/* Textareas */
 textarea {
     background-color: #1e1e1e;
-    color: #fff; 
-    border: 1px solid #555; 
-    border-radius: 5px;
+    color: #fff;
+    border: 1px solid #555;
     padding: 10px;
     resize: none; 
     font-family: 'Courier New', Courier, monospace;
     font-size: 14px;
-    width: 45%; 
-    height: 250px; 
+    width: 50%;
+    height: 350px; 
+    outline: none;
+    overflow-y: auto; 
+    box-sizing: border-box;
+}
+
+/* Textarea editable */
+textarea#editable {
+    height: 350px; 
+    width: 100%; 
+}
+
+/* Textarea de solo lectura */
+textarea#readonly   {
+    border-radius: 5px;
+    height: 350px; 
+    width: 40%; 
+    overflow-y: auto;
+    box-sizing: border-box;
 }
 
 /* Botón */
 button {
+    position: relative;
+    left: 320px;
     background-color: #00bcd4;
     color: #fff;
-    padding: 10px 20px;
+    padding: 10px 155px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    margin-top: 20px;
+    margin-top: -20px;
 }
 
 button:hover {
     background-color: #0288d1; 
+    color: black;
 }

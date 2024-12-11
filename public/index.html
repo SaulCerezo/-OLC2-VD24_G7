@@ -4,18 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Parser</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Enlace al CSS -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h1>Parser Interface</h1>
-    
-    <!-- Contenedor para los textarea -->
+
     <div class="textarea-container">
-        <textarea id="editable" placeholder="Escribe aquí..."></textarea>
+        <!-- Textarea editable con líneas -->
+        <div class="textarea-wrapper">
+            <div class="line-numbers" id="lineNumbers"></div>
+            <textarea id="editable" placeholder="Escribe aquí..." spellcheck="false"></textarea>
+        </div>
+    
+        <!-- Textarea de solo lectura -->
         <textarea id="readonly" placeholder="El resultado aparecerá aquí..." readonly></textarea>
     </div>
 
-    <button id="processBtn">Process</button>
+    <button id="processBtn">▶</button>
 
     <script type="module" src="../dist/index.js"></script>
 </body>
