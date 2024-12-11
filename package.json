@@ -5,7 +5,9 @@
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
+    "predev": "npm run compile",
     "start": "node dist/index.js",
+    "prebuild": "npm run compile",
     "build": "tsc",
     "compile": "peggy --format es -o src/grammar.js grammar/grammar.pegjs"
   },
