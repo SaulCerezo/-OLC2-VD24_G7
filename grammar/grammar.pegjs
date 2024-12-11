@@ -2,7 +2,10 @@ grammar
  = regla (_ regla)*
 
 regla
- = _ id _ "=" _ opciones _ (';' / salto_linea)
+ = _ id alias_regla? _ "=" _ opciones _ (';' / salto_linea)
+
+alias_regla
+  = _ '"' [^"]+ '"'
 
 salto_linea = [\n]*
 
@@ -10,20 +13,34 @@ opciones
  = concatenacion (_ "/" _ concatenacion)*
 
 concatenacion
- = expresion (_ expresion)*
- 
+ = etiquetada (_ etiquetada)*
+
+etiquetada
+  = id _ ":" _ expresion
+  / expresion
+
 expresion
- = regla 
- /asercion
+ = pluck
+ / regla 
+ / asercion
+ / texto
  / subexpresion [+*?]?
  / cero_o_mas
  / una_o_mas
  / cero_o_una
  / parseo
- 
- asercion 
+
+pluck
+  = "@" _ etiquetada
+  / "@" _ parseo
+
+asercion 
   = ("&" / "!") _ parseo
- subexpresion
+
+texto
+  = "$" _ parseo
+  
+subexpresion
   = "(" _ opciones _ ")"
 
 cero_o_mas
@@ -42,7 +59,7 @@ parseo
  / conjunto ( _ "i" / _)
 
 id
- = [a-zA-Z0-9_]+
+ = [a-zA-Z_][a-zA-Z0-9_]*
 
 cadena
  = ["] [^"]* ["]
