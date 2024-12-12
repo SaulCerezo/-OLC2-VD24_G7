@@ -6,6 +6,7 @@ regla
 
 alias_regla
   = _ '"' [^"]+ '"'
+  / _ "'" [^']+ "'"
 
 salto_linea = [\n]*
 
@@ -80,7 +81,7 @@ parseo
  / conjunto ( _ "i" / _)
 
 id
- = [a-zA-Z_][a-zA-Z0-9_]*
+ = [a-zA-Z_]i[a-zA-Z0-9_]i*
 
 numero
  = [0-9]+
