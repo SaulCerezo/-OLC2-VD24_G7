@@ -102,4 +102,7 @@ conjunto
 
 contenido_conjunto = [^[\]]+
 
-_ = [ \t\n\r]*
+_ = ([ \t\n\r] / comentarios)*
+   
+
+comentarios = "//" (![\n] .)*
