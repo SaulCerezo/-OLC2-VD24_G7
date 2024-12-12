@@ -29,6 +29,10 @@ expresion
  / una_o_mas
  / cero_o_una
  / parseo
+ / punto
+
+punto
+  = "." etiquetada
 
 pluck
   = "@" _ etiquetada
