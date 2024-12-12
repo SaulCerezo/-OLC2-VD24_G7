@@ -30,6 +30,10 @@ expresion
  / cero_o_una
  / parseo
  / punto
+ / fin_entrada
+
+fin_entrada
+  = "!." etiquetada
 
 punto
   = "." etiquetada
