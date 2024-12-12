@@ -29,33 +29,27 @@ expresion
  / una_o_mas
  / cero_o_una
  / parseo
- / punto
+ / _Punto_
  / fin_entrada
- / _ "|" _ repeticiones
+ / repeticiones
 
 repeticiones
-  = conteo 
-  / min_max
-  / conteo_delimitador
-  / min_max_delimitador
+  = "|" _ (id / numero)? _ tipo_rep
 
-conteo
-  = id _ "|" _ etiquetada
-
-min_max
-  = (id)? _ ".." _ (id)? _ "|" _ etiquetada 
-
-conteo_delimitador
-  = (id)? _ "," _ expresion _ "|" _ etiquetada
-
-min_max_delimitador 
-  = (id)? _ ".." _ (id)? _ "," _ expresion _ "|" etiquetada
+tipo_rep
+  = ".." _ (id / numero)? _ fin_rep
+    / "|" _ etiquetada?
+    / "," _ ( _ expresion _ )+ _ "|" _ etiquetada?
+  
+fin_rep 
+  = "," _ (_ expresion _)+ _ "|" _ etiquetada?
+   / "|" _ etiquetada?
 
 fin_entrada
-  = "!." etiquetada
+  = "!." _ etiquetada?
 
-punto
-  = "." etiquetada
+_Punto_
+  = "." _ etiquetada?
 
 pluck
   = "@" _ etiquetada
@@ -88,6 +82,9 @@ parseo
 id
  = [a-zA-Z_][a-zA-Z0-9_]*
 
+numero
+ = [0-9]+
+
 cadena
  = ["] [^"]* ["]
  / ['] [^']* [']
@@ -106,3 +103,4 @@ _ = ([ \t\n\r] / comentarios)*
    
 
 comentarios = "//" (![\n] .)*
+  /"/*" (!"*/" .)* "*/"
