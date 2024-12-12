@@ -106,3 +106,4 @@ _ = ([ \t\n\r] / comentarios)*
    
 
 comentarios = "//" (![\n] .)*
+  /"/*" (!"*/" .)* "*/"
