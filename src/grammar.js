@@ -870,7 +870,7 @@ function peg$parse(input, options) {
     }
     if (s1 !== peg$FAILED) {
       s2 = peg$parse_();
-      s3 = peg$parseparseo();
+      s3 = peg$parseexpresion();
       if (s3 !== peg$FAILED) {
         s1 = [s1, s2, s3];
         s0 = s1;
