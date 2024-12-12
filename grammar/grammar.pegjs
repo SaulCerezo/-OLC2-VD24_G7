@@ -38,7 +38,7 @@ asercion
   = ("&" / "!") _ parseo
 
 texto
-  = "$" _ parseo
+  = "$" _ expresion
   
 subexpresion
   = "(" _ opciones _ ")"
