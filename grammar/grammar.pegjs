@@ -31,6 +31,25 @@ expresion
  / parseo
  / punto
  / fin_entrada
+ / _ "|" _ repeticiones
+
+repeticiones
+  = conteo 
+  / min_max
+  / conteo_delimitador
+  / min_max_delimitador
+
+conteo
+  = id _ "|" _ etiquetada
+
+min_max
+  = (id)? _ ".." _ (id)? _ "|" _ etiquetada 
+
+conteo_delimitador
+  = (id)? _ "," _ expresion _ "|" _ etiquetada
+
+min_max_delimitador 
+  = (id)? _ ".." _ (id)? _ "," _ expresion _ "|" etiquetada
 
 fin_entrada
   = "!." etiquetada
